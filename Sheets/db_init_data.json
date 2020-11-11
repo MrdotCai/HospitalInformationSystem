@@ -1,0 +1,11 @@
+[
+    {
+        "model": "Sheets.drug",
+        "pk": 17,
+        "fields":{
+            "name": "皮炎平",
+            "price": 100.00,
+            "desc": "暂无描述"
+        }
+    }
+]
