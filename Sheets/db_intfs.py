@@ -291,7 +291,7 @@ def verify_and_login(username, password, login_request):
         return False
     else:
         auth.login(login_request, verify)
-        return True
+        return verify.pk
 
 def logout(logout_request):
     "注销用户登陆"
