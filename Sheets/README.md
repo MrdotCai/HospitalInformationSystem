@@ -26,7 +26,7 @@ def create_new_doctor(username, password, name, sex, tel, email, department):
 def create_new_patient(username, password, name, sex, tel, email):
 	"创建患者用户，所有参数均为字符串类型，sex请传'f'或'm'"
 def verify_and_login(username, password, login_request):
-	"检验用户信息是否合法：若合法则调用auth.login登陆且返回True，否则返回False,最后一个
+	"检验用户信息是否合法：若合法则调用auth.login登陆且返回用户id，否则返回False,最后一个
 参数为HttpRequest类型"
 def logout(logout_request):
     "注销用户登陆，最后一个参数为HttpRequest"

@@ -285,7 +285,7 @@ def look_up_medi_record(record_id):
 
 # --- update ---
 def verify_and_login(username, password, login_request):
-    "检验用户信息是否合法：若合法则调用auth.login登陆且返回True，否则返回False"
+    "检验用户信息是否合法：若合法则调用auth.login登陆且返回用户id，否则返回False"
     verify = auth.authenticate(username=username, password=password)
     if not verify:
         return False
