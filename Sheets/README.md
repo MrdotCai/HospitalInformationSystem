@@ -20,13 +20,13 @@ python manage.py migrate Sheets
 
 ```python
 def create_superuser(username, password, email):
-"创建超级用户，所有参数均为字符串类型"
+	"创建超级用户，所有参数均为字符串类型"
 def create_new_doctor(username, password, name, sex, tel, email, department):
-"创建医生用户，所有参数均为字符串类型，sex请传'f'或'm'"
+	"创建医生用户，所有参数均为字符串类型，sex请传'f'或'm'"
 def create_new_patient(username, password, name, sex, tel, email):
-"创建患者用户，所有参数均为字符串类型，sex请传'f'或'm'"
+	"创建患者用户，所有参数均为字符串类型，sex请传'f'或'm'"
 def verify_and_login(username, password, login_request):
-"检验用户信息是否合法：若合法则调用auth.login登陆且返回True，否则返回False,最后一个
+	"检验用户信息是否合法：若合法则调用auth.login登陆且返回True，否则返回False,最后一个
 参数为HttpRequest类型"
 def logout(logout_request):
     "注销用户登陆，最后一个参数为HttpRequest"
@@ -41,14 +41,14 @@ def medi_insert_value(doctor_id, patient_id, submit_time, appo_time,
         symptom='患者暂未描述症状', message='无消息'):
     "患者进行预约，前两个参数为doctor和patient的主键，两个time参数为字符串，格式为'YYY-MM-DD HH:MM:SS'，submit_time为预约的提交时间，appo_time为想预约的时间"
 def doctor_insert_value(name, sex, tel, email, department, user_key):
-"新建医生项，最后一个参数传user_id,其它参数均为字符串格式，sex一定要传'm'或者'f'"
+	"新建医生项，最后一个参数传user_id,其它参数均为字符串格式，sex一定要传'm'或者'f'"
 def patient_insert_value(name, sex, tel, email, user_key):
-"新建患者项，最后一个参数传user_id,参数均为字符串格式"
+	"新建患者项，最后一个参数传user_id,参数均为字符串格式"
 def drug_insert_value(name, price=100.00, desc='暂无描述'):
-"新建药品项，price为xxx.xx的浮点数，其它均为字符串" 
+	"新建药品项，price为xxx.xx的浮点数，其它均为字符串" 
 def init_database():
-"初始化数据库，服务器运行后只能执行一次该函数"
-"三人一人一个超级用户，插入一些科室和药品表项"
+	"初始化数据库，服务器运行后只能执行一次该函数"
+	"三人一人一个超级用户，插入一些科室和药品表项"
 ```
 
 #### 数据库查询：
@@ -215,5 +215,5 @@ def delete_department(name):
 def delete_medi_record(record_id):
 	"通过id删除一条病历记录"
 def delete_drug(name):
-    "通过药品名删除药品"
+	"通过药品名删除药品"
 ```
