@@ -1,3 +1,4 @@
+# 此readme版本滞后，待修正...
 ### Sheets文件夹置于工程主目录下
 
 ### setting中INSTALLED_APPS增加一项：‘Sheets’

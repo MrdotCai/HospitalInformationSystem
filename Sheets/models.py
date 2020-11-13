@@ -16,7 +16,8 @@ class Doctor(models.Model):
     tel = models.CharField(max_length=11) # 医生电话
     email = models.EmailField() # 医生邮件
     department = models.ForeignKey('Department', on_delete=models.CASCADE) # 科室外键
-    user_key = models.IntegerField()
+    age = models.IntegerField() # 医生年龄
+    user_key = models.IntegerField() # 用户id,非外键
 
 # --- patient sheet ---
 class Patient(models.Model):
@@ -28,7 +29,8 @@ class Patient(models.Model):
     sex = models.CharField(max_length=5, choices=gender) # 患者性别
     tel = models.CharField(max_length=11) # 患者电话
     email = models.EmailField() # 患者邮件
-    user_key = models.IntegerField()
+    age = models.IntegerField() # 患者年龄
+    user_key = models.IntegerField() # 用户id，非外键
 
 # --- drug sheet ---
 class Drug(models.Model):
@@ -61,8 +63,8 @@ class MedicalRecord(models.Model):
     # 医生拒绝/取消
     cancel_message = models.TextField(null=True) # 医生拒绝/取消时的携带消息
     # 医生诊断
-    disease = models.CharField(max_length=100, null=True) # 患病类型
-    detail = models.TextField(null=True) # 患病细节描述
-    diag_message = models.TextField(null=True) # 医嘱
+    disease = models.CharField(max_length=100, null=True) # 患病类型：主诉（感冒）
+    detail = models.TextField(null=True) # 患病细节描述：病症（鼻塞、乏力、发热）
+    diag_message = models.TextField(null=True) # 诊断（病毒性感染引发流感）
     prescription = models.CharField(max_length=1000, null=True) # 医生处方：药品+用法用量
     drugs_key = models.ManyToManyField('Drug')
