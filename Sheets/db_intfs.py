@@ -177,7 +177,7 @@ def pat_ask_record(patient_id):
         tmp['doctor_sex'] = record.doctor_key.sex
         tmp['doctor_tel'] = record.doctor_key.tel
         tmp['doctor_email'] = record.doctor_key.email
-        tmp['doctor_apartment'] = record.doctor_key.department.name
+        tmp['doctor_department'] = record.doctor_key.department.name
         tmp['doctor_age'] = record.doctor_key.age
         # 获取预约信息
         tmp['submit_time'] = datetime.datetime.strftime(record.submit_time,'%Y-%m-%d %H:%M:%S')
