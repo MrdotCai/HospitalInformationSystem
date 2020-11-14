@@ -442,10 +442,10 @@ def init_database():
         create_new_doctor('zhangsan', '123', '张三', 'm', '13389654217', 'zhangsan@null.com', '内科', 35)
         create_new_doctor('lisi', '123', '李四', 'f', '19745632564', 'lisi@null.com', '妇科', 32)
         create_new_patient('wangwu', '123', '王五', 'm', '18569423659', 'wangwu@null.com', 24)
-        doctor_diagnose(1,'感冒','发烧，流鼻涕，四肢乏力', '病毒性感冒',
-            [{"drug": "999感冒灵", "usage":"一天三次，一次一包"},{"drug":"阿莫西林胶囊", "usage":"一天两次，一次一粒"}])
         make_appointment(1,1,"2020-11-22 00:00:00")
         make_appointment(1,2,"2020-11-22 12:00:00")
+        doctor_diagnose(1,'感冒','发烧，流鼻涕，四肢乏力', '病毒性感冒',
+            [{"drug": "999感冒灵", "usage":"一天三次，一次一包"},{"drug":"阿莫西林胶囊", "usage":"一天两次，一次一粒"}])
         drug_insert_value('999感冒灵')
         drug_insert_value('康泰克')
         drug_insert_value('板蓝根')
