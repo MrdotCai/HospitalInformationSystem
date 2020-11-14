@@ -1,0 +1,2 @@
+webpackJsonp([0],{QLFm:function(t,n,i){t.exports=i.p+"static/img/doctor.9bb60b3.png"},jgPH:function(t,n,i){t.exports=i.p+"static/img/patient.1d488e8.jpg"},mvHQ:function(t,n,i){t.exports={default:i("qkKv"),__esModule:!0}},qkKv:function(t,n,i){var o=i("FeBl"),p=o.JSON||(o.JSON={stringify:JSON.stringify});t.exports=function(t){return p.stringify.apply(p,arguments)}}});
+//# sourceMappingURL=0.d45f81402f1cbf45e20b.js.map
