@@ -76,6 +76,8 @@ def init_database():
         create_new_doctor('zhangsan', '123', '张三', 'm', '13389654217', 'zhangsan@null.com', '内科', 35)
         create_new_doctor('lisi', '123', '李四', 'f', '19745632564', 'lisi@null.com', '妇科', 32)
         create_new_patient('wangwu', '123', '王五', 'm', '18569423659', 'wangwu@null.com', 24)
+        make_appointment(1,1,"2020-11-22 00:00:00")
+        make_appointment(1,2,"2020-11-22 12:00:00")
         drug_insert_value('999感冒灵')
         drug_insert_value('康泰克')
         drug_insert_value('板蓝根')
@@ -200,6 +202,55 @@ def doc_ask_waiting(doctor_id):
         tmp['appo_message'] = record.appo_message
         waiting.append(tmp)
     return waiting
+
+def pat_ask_record(patient_id):
+    "通过患者ID获取以处理与待处理的病历返回字典：{'undone':[{患者正在预约中的第一条记录},{第二条},..], 'done':[{患者已完成的第一条看病记录},{第二}, ...]}"
+    patient = Patient.objects.get(pk=patient_id)
+    records = {"undone":[], "done":[]}
+    undone_records = patient.medicalrecord_set.filter(appo_confirm=True, appo_cancel=False, appo_complete=False)
+    done_records = patient.medicalrecord_set.filter(appo_confirm=True, appo_cancel=False, appo_complete=True)
+    for record in undone_records:
+        tmp = {}
+        # 获取记录id
+        tmp['record_id'] = record.pk
+        # 获取医生基本信息
+        tmp['doctor_id'] = record.doctor_key.pk
+        tmp['doctor_name'] = record.doctor_key.name
+        tmp['doctor_sex'] = record.doctor_key.sex
+        tmp['doctor_tel'] = record.doctor_key.tel
+        tmp['doctor_email'] = record.doctor_key.email
+        tmp['doctor_apartment'] = record.doctor_key.department.name
+        tmp['doctor_age'] = record.doctor_key.age
+        # 获取预约信息
+        tmp['submit_time'] = datetime.datetime.strftime(record.submit_time,'%Y-%m-%d %H:%M:%S')
+        tmp['appo_time'] = datetime.datetime.strftime(record.appo_time,'%Y-%m-%d %H:%M:%S')
+        tmp['problem'] = record.symptom
+        tmp['appo_message'] = record.appo_message
+        records['undone'].append(tmp)
+    for record in done_records:
+        tmp = {}
+        # 获取记录id
+        tmp['record_id'] = record.pk
+        # 获取医生基本信息
+        tmp['doctor_id'] = record.doctor_key.pk
+        tmp['doctor_name'] = record.doctor_key.name
+        tmp['doctor_sex'] = record.doctor_key.sex
+        tmp['doctor_tel'] = record.doctor_key.tel
+        tmp['doctor_email'] = record.doctor_key.email
+        tmp['doctor_department'] = record.doctor_key.department.name
+        tmp['doctor_age'] = record.doctor_key.age
+        # 获取预约信息
+        tmp['submit_time'] = datetime.datetime.strftime(record.submit_time,'%Y-%m-%d %H:%M:%S')
+        tmp['appo_time'] = datetime.datetime.strftime(record.appo_time,'%Y-%m-%d %H:%M:%S')
+        tmp['problem'] = record.symptom
+        tmp['appo_message'] = record.appo_message
+        # 获取诊断信息
+        tmp['symptom'] = record.disease
+        tmp['detail'] = record.detail
+        tmp['diagnosis'] = record.diag_message
+        tmp['prescription'] = json.loads(record.prescription)
+        records['done'].append(tmp)
+    return records
 
 def pat_ask_history(patient_id):
     "通过患者ID获取历史病历，返回：{'refused':[{患者第一条被拒记录},{第二条},..], 'handled':[{患者已完成的第一条看病记录},{第二}, ...], 'calloff':[{被医生取消的第一条预约记录},{第二条},...]}"
