@@ -57,48 +57,6 @@ def make_appointment(patient_id, doctor_id, appo_time, submit_time='1970-01-01 0
     "患者预约医生，前两个参数分别为患者id和医生id,appo_time格式为'YYY-MM-DD HH:MM:SS'"
     medi_insert_value(doctor_id, patient_id, submit_time, appo_time, comfirm, problem, message)
 
-initialized = False
-def init_database():
-    "初始化数据库"
-    global initialized
-    if initialized == False:
-        create_superuser('yangyizhe', '123', 'yangyizhe@627.com')
-        create_superuser('guotiezheng', '123', 'guotiezheng@627.com')
-        create_superuser('caijian', '123', 'caijian@629.com')
-        depa_insert_value('内科')
-        depa_insert_value('外科')
-        depa_insert_value('口腔科')
-        depa_insert_value('妇科')
-        depa_insert_value('儿科')
-        depa_insert_value('五官科')
-        depa_insert_value('放射科')
-        depa_insert_value('皮肤科')
-        create_new_doctor('zhangsan', '123', '张三', 'm', '13389654217', 'zhangsan@null.com', '内科', 35)
-        create_new_doctor('lisi', '123', '李四', 'f', '19745632564', 'lisi@null.com', '妇科', 32)
-        create_new_patient('wangwu', '123', '王五', 'm', '18569423659', 'wangwu@null.com', 24)
-        make_appointment(1,1,"2020-11-22 00:00:00")
-        make_appointment(1,2,"2020-11-22 12:00:00")
-        drug_insert_value('999感冒灵')
-        drug_insert_value('康泰克')
-        drug_insert_value('板蓝根')
-        drug_insert_value('扑热息痛片')
-        drug_insert_value('阿莫西林胶囊')
-        drug_insert_value('息斯敏')
-        drug_insert_value('氯雷他定片')
-        drug_insert_value('泻立停')
-        drug_insert_value('黄连素')
-        drug_insert_value('藿香正气水')
-        drug_insert_value('医用酒精')
-        drug_insert_value('医用棉签')
-        drug_insert_value('医用纱布')
-        drug_insert_value('创可贴')
-        drug_insert_value('止疼药')
-        drug_insert_value('皮炎平')
-        initialized = True
-    else:
-        raise Exception("重复初始化数据库")
-
-
 # --- query ---
 def all_departments():
     "获取所有科室信息，返回字典列表：[{第一个科室信息},{第二个科室信息}，...]"
@@ -463,3 +421,47 @@ def delete_medi_record(record_id):
 def delete_drug(name):
     "通过药品名删除药品"
     Drug.objects.filter(name=name).delete()
+
+# --- initialize ---
+initialized = False
+def init_database():
+    "初始化数据库"
+    global initialized
+    if initialized == False:
+        create_superuser('yangyizhe', '123', 'yangyizhe@627.com')
+        create_superuser('guotiezheng', '123', 'guotiezheng@627.com')
+        create_superuser('caijian', '123', 'caijian@629.com')
+        depa_insert_value('内科')
+        depa_insert_value('外科')
+        depa_insert_value('口腔科')
+        depa_insert_value('妇科')
+        depa_insert_value('儿科')
+        depa_insert_value('五官科')
+        depa_insert_value('放射科')
+        depa_insert_value('皮肤科')
+        create_new_doctor('zhangsan', '123', '张三', 'm', '13389654217', 'zhangsan@null.com', '内科', 35)
+        create_new_doctor('lisi', '123', '李四', 'f', '19745632564', 'lisi@null.com', '妇科', 32)
+        create_new_patient('wangwu', '123', '王五', 'm', '18569423659', 'wangwu@null.com', 24)
+        doctor_diagnose(1,'感冒','发烧，流鼻涕，四肢乏力', '病毒性感冒',
+            [{"drug": "999感冒灵", "usage":"一天三次，一次一包"},{"drug":"阿莫西林胶囊", "usage":"一天两次，一次一粒"}])
+        make_appointment(1,1,"2020-11-22 00:00:00")
+        make_appointment(1,2,"2020-11-22 12:00:00")
+        drug_insert_value('999感冒灵')
+        drug_insert_value('康泰克')
+        drug_insert_value('板蓝根')
+        drug_insert_value('扑热息痛片')
+        drug_insert_value('阿莫西林胶囊')
+        drug_insert_value('息斯敏')
+        drug_insert_value('氯雷他定片')
+        drug_insert_value('泻立停')
+        drug_insert_value('黄连素')
+        drug_insert_value('藿香正气水')
+        drug_insert_value('医用酒精')
+        drug_insert_value('医用棉签')
+        drug_insert_value('医用纱布')
+        drug_insert_value('创可贴')
+        drug_insert_value('止疼药')
+        drug_insert_value('皮炎平')
+        initialized = True
+    else:
+        raise Exception("重复初始化数据库")
