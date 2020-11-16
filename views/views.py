@@ -247,7 +247,7 @@ class DoctorIndex(View):
         waiting_patients=db_intfs.doc_ask_waiting(doctor_id=doctor_id)
         for patient in waiting_patients:
             patient_dict={}
-            patient_dict['id']=patient['patient_id']
+            patient_dict['id']=patient['record_id']
             patient_dict['name']=patient['patient_name']
             patient_dict['sex']="男" if patient["patient_sex"] == "m" else "女",
             patient_dict['age']=patient['patient_age']
@@ -258,3 +258,25 @@ class DoctorIndex(View):
         }
         return HttpResponse(json.dumps(ret), content_type="application/json")
 
+class GetDiagnose(View):
+    """
+    docstring
+    """
+    
+    def post(self, request):
+        """
+        docstring
+        """
+        data = json.loads(request.body.decode("utf-8"))
+        record_id=data['diagnose_id']
+        record=db_intfs.look_up_medi_record(record_id=record_id)
+        doctor={
+            'name':record['doctor_name'],
+            'department':record['doctor_department'],
+        }
+        patient={
+            'name':record['patient_name'],
+            'sex':record['patient_sex'],
+            'age':record['patient_age'],
+        }
+        

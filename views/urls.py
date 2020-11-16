@@ -15,8 +15,8 @@ urlpatterns = [
     path('check_user',Login.as_view()),
     path('add_user',Regist.as_view()),
     path('patient_info',PatientIndex.as_view()),
-    # path('diagnose_info',Dignosis.as_view()),
+    path('diagnose_info',Dignosis.as_view()),
     path('get_patient',Appointment.as_view()),
     path('add_register',MakeAppointment.as_view()),
-    path('diagnose_info',DoctorIndex.as_view()),
+    path('doctor_index',DoctorIndex.as_view()),
 ]
