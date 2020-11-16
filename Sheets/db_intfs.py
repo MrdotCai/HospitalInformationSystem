@@ -322,10 +322,21 @@ def look_up_medi_record(record_id):
     return record
 
 def all_drugs():
+    "获取所有药品信息，返回字典列表：[{第一类药品信息},{第二个类药品信息}，...]"
+    drug_infos = Drug.objects.all()
+    drugs = []
+    for info in drug_infos:
+        tmp = {}
+        tmp['name'] = info.name
+        tmp['desc'] = info.desc
+        tmp['price'] = info.price
+        drugs.append(tmp)
+    '''
     drugs=[
         {'name':'感冒灵'},
         {'name':'盘尼西林'}
     ]
+    '''
     return drugs
 
 # --- update ---
