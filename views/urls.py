@@ -8,6 +8,7 @@ from views.views import Dignosis
 from views.views import Appointment
 from views.views import MakeAppointment
 from views.views import DoctorIndex
+from views.views import GetDiagnose
 
 urlpatterns = [
     path('',Index.as_view()),
@@ -19,4 +20,5 @@ urlpatterns = [
     path('get_patient',Appointment.as_view()),
     path('add_register',MakeAppointment.as_view()),
     path('doctor_index',DoctorIndex.as_view()),
+    path('get_diagnose',GetDiagnose.as_view()),
 ]

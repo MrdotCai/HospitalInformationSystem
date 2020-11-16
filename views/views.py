@@ -243,40 +243,71 @@ class DoctorIndex(View):
             "name": user_info["doctor_name"],
             "department": user_info["doctor_department"],
         }
-        formdata=[]
-        waiting_patients=db_intfs.doc_ask_waiting(doctor_id=doctor_id)
+        formdata = []
+        waiting_patients = db_intfs.doc_ask_waiting(doctor_id=doctor_id)
         for patient in waiting_patients:
-            patient_dict={}
-            patient_dict['id']=patient['record_id']
-            patient_dict['name']=patient['patient_name']
-            patient_dict['sex']="男" if patient["patient_sex"] == "m" else "女",
-            patient_dict['age']=patient['patient_age']
+            patient_dict = {}
+            patient_dict["id"] = patient["record_id"]
+            patient_dict["name"] = patient["patient_name"]
+            patient_dict["sex"] = ("男" if patient["patient_sex"] == "m" else "女",)
+            patient_dict["age"] = patient["patient_age"]
             formdata.append(patient_dict)
-        ret={
-            'doctor':doctor,
-            'formdata':formdata
-        }
+        ret = {"doctor": doctor, "formdata": formdata}
         return HttpResponse(json.dumps(ret), content_type="application/json")
+
 
 class GetDiagnose(View):
     """
     docstring
     """
-    
+
     def post(self, request):
         """
         docstring
         """
         data = json.loads(request.body.decode("utf-8"))
-        record_id=data['diagnose_id']
-        record=db_intfs.look_up_medi_record(record_id=record_id)
-        doctor={
-            'name':record['doctor_name'],
-            'department':record['doctor_department'],
+        record_id = data["diagnose_id"]
+        record = db_intfs.look_up_medi_record(record_id=record_id)
+        doctor = {
+            "name": record["doctor_name"],
+            "department": record["doctor_department"],
         }
-        patient={
-            'name':record['patient_name'],
-            'sex':record['patient_sex'],
-            'age':record['patient_age'],
+        patient = {
+            "name": record["patient_name"],
+            "sex": ("男" if record["patient_sex"] == "m" else "女"),
+            "age": record["patient_age"],
         }
-        
+        all_drugs = db_intfs.all_drugs()
+        options = []
+        for drug in all_drugs:
+            options.append({"label": drug["name"], "value": drug["name"]})
+        ret = {"doctor": doctor, "patient": patient, "options": options}
+        return HttpResponse(json.dumps(ret), content_type="application/json")
+
+
+class UpateDiagnose(View):
+    """
+    docstring
+    """
+
+    def post(self, request):
+        """
+        docstring
+        """
+        data = json.loads(request.body.decode("utf-8"))
+        record_id = data["id"]
+        medicine = data["medicine"]
+        detail = data["detail"]
+        prescription = [
+            {"drug": m["name"], "usage": m["use"], "dosage": ""} for m in medicine
+        ]
+        db_intfs.doctor_diagnose(
+            record_id=record_id,
+            symptom="",
+            detail=detail,
+            diagnosis="",
+            prescription=prescription,
+        )
+        ret={'flag':'success'}
+        return HttpResponse(json.dumps(ret), content_type="application/json")
+

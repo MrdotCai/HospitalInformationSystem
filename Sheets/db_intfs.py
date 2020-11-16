@@ -321,6 +321,13 @@ def look_up_medi_record(record_id):
     record['prescription'] = json.loads(whole_record.prescription)
     return record
 
+def all_drugs():
+    drugs=[
+        {'name':'感冒灵'},
+        {'name':'盘尼西林'}
+    ]
+    return drugs
+
 # --- update ---
 def verify_and_login(username, password, login_request):
     "检验用户信息是否合法：若合法则调用auth.login登陆且返回用户id，否则返回False"
