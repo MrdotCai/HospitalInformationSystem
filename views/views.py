@@ -147,9 +147,7 @@ class Dignosis(View):
         record = db_intfs.look_up_medi_record(record_id=record_id)
         medicines = ""
         for dict in record["prescription"]:
-            print(dict)
             medicines += dict["drug"] + "\t" + dict["usage"] + "\n"
-        print(medicines)
         ret = {
             "patient": {
                 "name": user_info["patient_name"],
@@ -161,7 +159,7 @@ class Dignosis(View):
                 "department": record["doctor_department"],
                 "time": record["appo_time"],
                 "medicine": medicines,
-                "diagnose": record["diagnosis"],
+                "diagnose": record["detail"],
             },
         }
         return HttpResponse(json.dumps(ret), content_type="application/json")
@@ -201,7 +199,6 @@ class Appointment(View):
             option["children"] = doctors
             options.append(option)
         ret = {"patient": patient, "options": options}
-        print(ret)
         return HttpResponse(json.dumps(ret), content_type="application/json")
 
 
@@ -218,7 +215,6 @@ class MakeAppointment(View):
         patient_id = data["department"]
         doctor_id = data["doctor"]
         appo_time = data["date"] + " " + data["time"] + ":00"
-        print(appo_time)
         db_intfs.make_appointment(
             patient_id=patient_id, doctor_id=doctor_id, appo_time=appo_time
         )
